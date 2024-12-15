@@ -1,8 +1,8 @@
 from pyrogram import Client, idle
-from pyromod.listen import Listen
 from plugins.cb_data import app as Client2
 from config import *
-
+import pyromod
+from pyromod.listen import Listen
 # Initialize Bot Client
 bot = Client(
     "Renamer",
