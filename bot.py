@@ -1,26 +1,30 @@
 from pyrogram import Client, idle
+from pyromod.listen import Listen
 from plugins.cb_data import app as Client2
 from config import *
-import pyromod
-import pyrogram.utils
 
-pyrogram.utils.MIN_CHAT_ID = -999999999999
-pyrogram.utils.MIN_CHANNEL_ID = -100999999999999
-
-
-
-bot = Client("Renamer", bot_token=BOT_TOKEN, api_id=API_ID, api_hash=API_HASH, plugins=dict(root='plugins'))
-
-
-
+# Initialize Bot Client
+bot = Client(
+    "Renamer",
+    bot_token=BOT_TOKEN,
+    api_id=API_ID,
+    api_hash=API_HASH,
+    plugins=dict(root='plugins')
+)
 
 if STRING_SESSION:
-    apps = [Client2,bot]
+    # Run Multiple Clients (bot and Client2)
+    apps = [Client2, bot]
     for app in apps:
-        app.start()
-    idle()
+        app.start()  # Start all clients
+    print("All clients started successfully.")
+
+    idle()  # Keep the bot running
+
     for app in apps:
-        app.stop()
+        app.stop()  # Stop all clients when exiting
+    print("All clients stopped.")
 
 else:
+    # Run only the bot if STRING_SESSION is not provided
     bot.run()
